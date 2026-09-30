@@ -10,7 +10,10 @@ up:
 down:
 	migrate -path db/migration -database "postgresql://postgres:root@localhost:5432/simple_bank?sslmode=disable" -verbose down
 
-sqlc: 
+sqlc:
 	sqlc generate
 
-.PHONY: createdb dropdb up down sqlc
+test:
+	go test ./sqlc/ -v -cover -count=1 ./... 
+
+.PHONY: createdb dropdb up down sqlc test
